@@ -36,11 +36,7 @@ namespace ASM.Views {
             validator.Register(txtLast, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
             validator.Register(txtCurrent, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
 
-            BeginInvoke((Action)(() => {
-                dgvCustomers.ClearSelection();
-                selectedIndex = -1;
-                isLoaded = true;
-            }));
+            ClearSelection();
         }
 
         private void Add(object sender, EventArgs e) {
@@ -81,14 +77,7 @@ namespace ASM.Views {
         }
 
         private void New(object sender, EventArgs e) {
-            txtName.Texts = "";
-            cmbType.SelectedIndex = 0;
-            txtPeople.Texts = "1";
-            txtLast.Texts = "";
-            txtCurrent.Texts = "";
-
-            dgvCustomers.ClearSelection();
-            selectedIndex = -1;
+            ResetForm();
         }
 
         private void Remove(object sender, EventArgs e) {
@@ -99,6 +88,27 @@ namespace ASM.Views {
 
             controller.DeleteCustomer(selectedIndex);
             Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.SUCCESS_DELETE)}!", ToastType.SUCCESS);
+        }
+
+        private void ResetForm() {
+            txtName.Texts = "";
+            cmbType.SelectedIndex = 0;
+            txtPeople.Texts = "1";
+            txtLast.Texts = "";
+            txtCurrent.Texts = "";
+
+            dgvCustomers.ClearSelection();
+            selectedIndex = -1;
+        }
+
+        private void ClearSelection() {
+            BeginInvoke((Action)(() => {
+                dgvCustomers.ClearSelection();
+                selectedIndex = -1;
+                isLoaded = true;
+            }));
+
+            ResetForm();
         }
 
         private void CmbType_SelectedIndexChanged(object sender, EventArgs e) {
@@ -124,6 +134,8 @@ namespace ASM.Views {
 
         private void TxtSearch_BaseTextChanged(object sender, EventArgs e) {
             dgvCustomers.DataSource = controller.SearchCustomers(txtSearch.Texts.Trim());
+
+            ClearSelection();
         }
 
         private void GenerateInvoice(object sender, EventArgs e) {
