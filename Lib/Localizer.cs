@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace ASM.Lib {
     internal static class Localizer {
-        private static string currentLanguage;
+        private static Language currentLanguage;
         private static ResourceManager resourceManager;
         private static CultureInfo culture;
 
@@ -21,23 +21,23 @@ namespace ASM.Lib {
         }
 
         public static void Load(Language language) {
-            string strLanguage = language.ToString().ToLower();
-
-            if (currentLanguage == strLanguage) {
-                return;
-            }
-
-            currentLanguage = strLanguage;
-            culture = new CultureInfo(strLanguage);
+            currentLanguage = language;
+            culture = new CultureInfo(language.ToString());
             resourceManager = new ResourceManager(ResourceConstants.LANGUAGE_PATH, typeof(MainView).Assembly);
 
             LanguageChanged?.Invoke();
         }
 
-        public static void ApplyLocalizations(Control parentControl) {
-            foreach (Control control in parentControl.Controls) {
-                ApplyLocalization(control);
+        public static Language GetLanguage() {
+            return currentLanguage;
+        }
+
+        public static void SetLanguage(Language language) {
+            if (currentLanguage == language) {
+                return;
             }
+
+            Load(language);
         }
 
         public static void ApplyLocalization(Control control) {
@@ -50,9 +50,9 @@ namespace ASM.Lib {
             }
 
             string[] keys = control.Tag.ToString().Split(',');
-            string[] localizedTexts = GetResourcesFromArray(keys);
+            string[] localizedTexts = GetResources(keys);
 
-            string[] storedTexts = CacheManager.Get<string[]>(CacheGroup.Localization, control.Name);
+            string[] storedTexts = CacheManager.Get<string[]>(CacheGroup.LOCALIZATION, control.Name);
             string[] currentTexts = new string[localizedTexts.Length];
 
             if (control is CustomTextBox customTextBox) {
@@ -65,6 +65,8 @@ namespace ASM.Lib {
                 for (int i = 0; i < dataGridView.Columns.Count; i++) {
                     currentTexts[i] = dataGridView.Columns[i].HeaderText;
                 }
+            } else if (control is CustomComboBox comboBox) {
+                currentTexts = comboBox.Items.Cast<string>().ToArray();
             } else {
                 currentTexts[0] = control.Text;
             }
@@ -79,26 +81,34 @@ namespace ASM.Lib {
                 for (int i = 0; i < dataGridView.Columns.Count; i++) {
                     dataGridView.Columns[i].HeaderText = localizedTexts[i];
                 }
+            } else if (control is CustomComboBox comboBox) {
+                comboBox.DataSource = localizedTexts;
             } else {
                 control.Text = localizedTexts[0];
             }
 
-            CacheManager.Set(CacheGroup.Localization, control.Name, localizedTexts);
+            CacheManager.Set(CacheGroup.LOCALIZATION, control.Name, localizedTexts);
         }
 
-        public static string GetResources(string resources) {
+        public static void ApplyLocalizations(Control parentControl) {
+            foreach (Control control in parentControl.Controls) {
+                ApplyLocalization(control);
+            }
+        }
+
+        public static string GetResource(string resourceKey) {
             if (resourceManager == null || culture == null) {
-                return $"[{resources}]";
+                return $"[{resourceKey}]";
             }
 
-            return resourceManager.GetString(resources, culture);
+            return resourceManager.GetString(resourceKey, culture);
         }
 
-        public static string[] GetResourcesFromArray(string[] resources) {
+        public static string[] GetResources(string[] resources) {
             string[] results = new string[resources.Length];
 
             for (int i = 0; i < resources.Length; i++) {
-                results[i] = GetResources(resources[i]);
+                results[i] = GetResource(resources[i]);
             }
 
             return results;

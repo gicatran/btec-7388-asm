@@ -22,7 +22,7 @@ namespace ASM.Lib {
 
                 foreach (ValidationType validationType in entry.Value) {
                     if (!ValidateControl(control, validationType, out string errorMessage)) {
-                        Toast.ShowToast($"'{GetFieldName(control)}' {Localizer.GetResources(errorMessage)}!", ToastType.ERROR);
+                        Toast.ShowToast($"'{GetFieldName(control)}' {Localizer.GetResource(errorMessage)}!", ToastType.ERROR);
 
                         if (control is CustomTextBox textBoxError) {
                             textBoxError.BorderColor = ColorConstants.ERROR;
@@ -71,7 +71,7 @@ namespace ASM.Lib {
         }
 
         private string GetFieldName(Control control) {
-            return Localizer.GetResources(control.Tag.ToString());
+            return Localizer.GetResource(control.Tag.ToString());
         }
     }
 }

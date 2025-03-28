@@ -1,7 +1,7 @@
 ﻿namespace ASM.Constants {
     internal static class ResourceConstants {
         public const string LANGUAGE_PATH = "ASM.Resources.Texts.AppTexts";
-        public const string DATABASE_PATH = "ASM.Resources.Data.database.txt";
+        public const string DATABASE_FILE = "database.txt";
         public const string FONT_PATH = "ASM.Resources.Fonts.arial-unicode-ms.ttf";
 
         public const string ERROR_EMPTY = "error-empty";

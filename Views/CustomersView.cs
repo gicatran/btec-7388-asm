@@ -26,16 +26,23 @@ namespace ASM.Views {
         }
 
         private void OnLoad(object sender, EventArgs e) {
-            dgvCustomers.Columns.Clear();
-            dgvCustomers.DataSource = controller.GetCustomers();
-            cmbType.DataSource = Enum.GetValues(typeof(CustomerType));
-
             validator.Register(txtName, ValidationType.NOT_EMPTY);
             validator.Register(cmbType, ValidationType.SELECTED);
             validator.Register(txtPeople, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
             validator.Register(txtLast, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
             validator.Register(txtCurrent, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
 
+            RefreshView();
+        }
+
+        private void RefreshView() {
+            dgvCustomers.Columns.Clear();
+            dgvCustomers.DataSource = controller.GetCustomers();
+            dgvCustomers.Columns[2].Visible = false;
+            cmbType.Tag = Utils.EnumToString<CustomerType>();
+
+            Localizer.ApplyLocalization(cmbType);
+            Localizer.ApplyLocalization(dgvCustomers);
             ClearSelection();
         }
 
@@ -51,13 +58,13 @@ namespace ASM.Views {
                 );
 
                 controller.AddCustomer(customer);
-                Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.SUCCESS_ADD)}!", ToastType.SUCCESS);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_ADD)}!", ToastType.SUCCESS);
             }
         }
 
         private void Edit(object sender, EventArgs e) {
             if (selectedIndex == -1) {
-                Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.WARNING_UPDATE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_UPDATE_SELECT)}!", ToastType.WARNING);
                 return;
             }
 
@@ -72,7 +79,8 @@ namespace ASM.Views {
                 );
 
                 controller.UpdateCustomer(selectedIndex, customer);
-                Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.SUCCESS_UPDATE)}!", ToastType.SUCCESS);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_UPDATE)}!", ToastType.SUCCESS);
+                RefreshView();
             }
         }
 
@@ -82,12 +90,12 @@ namespace ASM.Views {
 
         private void Remove(object sender, EventArgs e) {
             if (selectedIndex == -1) {
-                Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.WARNING_DELETE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_DELETE_SELECT)}!", ToastType.WARNING);
                 return;
             }
 
             controller.DeleteCustomer(selectedIndex);
-            Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.SUCCESS_DELETE)}!", ToastType.SUCCESS);
+            Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_DELETE)}!", ToastType.SUCCESS);
         }
 
         private void ResetForm() {
@@ -112,6 +120,11 @@ namespace ASM.Views {
         }
 
         private void CmbType_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!isLoaded) {
+                isLoaded = true;
+                return;
+            }
+
             txtPeople.Enabled = cmbType.SelectedIndex == 0;
             txtPeople.Texts = cmbType.SelectedIndex == 0 ? txtPeople.Texts : "1";
         }
@@ -126,9 +139,9 @@ namespace ASM.Views {
             if (selectedIndex >= 0 && selectedIndex < dgvCustomers.Rows.Count) {
                 txtName.Texts = dgvCustomers.Rows[selectedIndex].Cells[1].Value.ToString();
                 cmbType.SelectedIndex = Convert.ToInt32(dgvCustomers.Rows[selectedIndex].Cells[2].Value);
-                txtPeople.Texts = dgvCustomers.Rows[selectedIndex].Cells[3].Value.ToString();
-                txtLast.Texts = dgvCustomers.Rows[selectedIndex].Cells[4].Value.ToString();
-                txtCurrent.Texts = dgvCustomers.Rows[selectedIndex].Cells[5].Value.ToString();
+                txtPeople.Texts = dgvCustomers.Rows[selectedIndex].Cells[4].Value.ToString();
+                txtLast.Texts = dgvCustomers.Rows[selectedIndex].Cells[5].Value.ToString();
+                txtCurrent.Texts = dgvCustomers.Rows[selectedIndex].Cells[6].Value.ToString();
             }
         }
 
@@ -140,7 +153,7 @@ namespace ASM.Views {
 
         private void GenerateInvoice(object sender, EventArgs e) {
             if (selectedIndex == -1 || dgvCustomers.SelectedRows.Count == 0) {
-                Toast.ShowToast($"{Localizer.GetResources(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.WARNING);
                 return;
             }
 

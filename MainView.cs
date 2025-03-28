@@ -73,7 +73,7 @@ namespace ASM {
             pnlLayout.SplitterDistance = pnlLayout.Panel1MinSize;
 
             foreach (var button in pnlSidebar.Controls.OfType<CustomButton>()) {
-                button.Text = isSidebarCollapsed ? "" : Localizer.GetResources(button.Tag.ToString());
+                button.Text = isSidebarCollapsed ? "" : Localizer.GetResource(button.Tag.ToString());
                 button.ImageAlign = isSidebarCollapsed ? ContentAlignment.MiddleCenter : ContentAlignment.MiddleLeft;
             }
         }

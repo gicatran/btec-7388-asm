@@ -3,7 +3,6 @@ using ASM.Lib.Constants;
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Design;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -110,64 +109,41 @@ namespace ASM.Components {
         }
 
         [Category("Custom ComboBox Properties")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Localizable(true)]
-        [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
-        [MergableProperty(false)]
         public ComboBox.ObjectCollection Items {
             get => cmbList.Items;
         }
 
         [Category("Custom ComboBox Properties")]
-        [DefaultValue(null)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [AttributeProvider(typeof(IListSource))]
         public object DataSource {
             get => cmbList.DataSource;
             set => cmbList.DataSource = value;
         }
 
         [Category("Custom ComboBox Properties")]
-        [DefaultValue(AutoCompleteMode.None)]
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
         public AutoCompleteMode AutoCompleteMode {
             get => cmbList.AutoCompleteMode;
             set => cmbList.AutoCompleteMode = value;
         }
 
         [Category("Custom ComboBox Properties")]
-        [DefaultValue(AutoCompleteSource.None)]
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
         public AutoCompleteSource AutoCompleteSource {
             get => cmbList.AutoCompleteSource;
             set => cmbList.AutoCompleteSource = value;
         }
 
         [Category("Custom ComboBox Properties")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Localizable(true)]
-        [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
         public AutoCompleteStringCollection AutoCompleteCustomSource {
             get => cmbList.AutoCompleteCustomSource;
             set => cmbList.AutoCompleteCustomSource = value;
         }
 
         [Category("Custom ComboBox Properties")]
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SelectedIndex {
             get => cmbList.SelectedIndex;
             set => cmbList.SelectedIndex = value;
         }
 
         [Category("Custom ComboBox Properties")]
-        [Browsable(false)]
-        [Bindable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedItem {
             get => cmbList.SelectedItem;
             set => cmbList.SelectedItem = value;

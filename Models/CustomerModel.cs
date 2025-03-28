@@ -1,4 +1,5 @@
-﻿using ASM.Lib.Constants;
+﻿using ASM.Lib;
+using ASM.Lib.Constants;
 using System;
 
 namespace ASM.Models {
@@ -6,6 +7,9 @@ namespace ASM.Models {
         public int Id { get; set; }
         public string Name { get; set; }
         public CustomerType Type { get; set; }
+        public string DisplayType {
+            get => Localizer.GetResource(Type.ToString().ToLower());
+        }
         public int NumberOfPeople { get; set; }
         public int LastWaterReading { get; set; }
         public int CurrentWaterReading { get; set; }
@@ -29,7 +33,7 @@ namespace ASM.Models {
         }
 
         public double CalculateTotalBill() {
-            if (Type == CustomerType.Household) {
+            if (Type == CustomerType.HOUSEHOLD) {
                 return CalculateHouseholdBill();
             }
 
@@ -42,7 +46,7 @@ namespace ASM.Models {
 
         private double CalculateHouseholdBill() {
             int averageConsumption = AmountOfConsumption / NumberOfPeople;
-            double[] prices = (double[])AppConstants.PRICE_TABLE[Convert.ToInt32(CustomerType.Household)];
+            double[] prices = (double[])AppConstants.PRICE_TABLE[Convert.ToInt32(CustomerType.HOUSEHOLD)];
             int[] limits = { 10, 10, 10, int.MaxValue };
             double cost = 0;
 

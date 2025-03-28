@@ -225,4 +225,31 @@
   <data name="error-invoice" xml:space="preserve">
     <value>Có lỗi xảy ra khi xuất hóa đơn</value>
   </data>
+  <data name="en" xml:space="preserve">
+    <value>Tiếng Anh</value>
+  </data>
+  <data name="vi" xml:space="preserve">
+    <value>Tiếng Việt</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="apply" xml:space="preserve">
+    <value>Áp Dụng</value>
+  </data>
+  <data name="household" xml:space="preserve">
+    <value>Hộ gia đình</value>
+  </data>
+  <data name="administrative" xml:space="preserve">
+    <value>Cơ quan hành chính, dịch vụ công</value>
+  </data>
+  <data name="production" xml:space="preserve">
+    <value>Đơn vị sản xuất</value>
+  </data>
+  <data name="business" xml:space="preserve">
+    <value>Dịch vụ kinh doanh</value>
+  </data>
+  <data name="generate-invoice" xml:space="preserve">
+    <value>Xuất hóa đơn</value>
+  </data>
 </root>

@@ -21,10 +21,10 @@ namespace ASM.Controllers {
 
         public UserControl GetPage(string key) {
             if (pages.ContainsKey(key)) {
-                if (!CacheManager.Exists(CacheGroup.Pages, key)) {
-                    CacheManager.Set(CacheGroup.Pages, key, pages[key].Control);
+                if (!CacheManager.Exists(CacheGroup.PAGES, key)) {
+                    CacheManager.Set(CacheGroup.PAGES, key, pages[key].Control);
                 }
-                return CacheManager.Get<UserControl>(CacheGroup.Pages, key);
+                return CacheManager.Get<UserControl>(CacheGroup.PAGES, key);
             }
             return null;
         }

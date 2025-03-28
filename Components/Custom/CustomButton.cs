@@ -31,6 +31,7 @@ namespace ASM.Components {
             BackColor = ColorConstants.PRIMARY;
             ForeColor = Color.White;
             Font = FontConstants.MEDIUM;
+            Cursor = Cursors.Hand;
         }
 
         private GraphicsPath GetFigurePath(RectangleF rect, float radius) {
@@ -96,16 +97,6 @@ namespace ASM.Components {
             if (BorderRadius > Height) {
                 BorderRadius = Height;
             }
-        }
-
-        private void InitializeComponent() {
-            this.SuspendLayout();
-            // 
-            // CustomButton
-            // 
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ResumeLayout(false);
-
         }
     }
 }

@@ -5,15 +5,15 @@ using System.Windows.Forms;
 
 namespace ASM.Lib.Constants {
     internal enum CustomerType {
-        Household,
-        Administrative,
-        Production,
-        Business
+        HOUSEHOLD,
+        ADMINISTRATIVE,
+        PRODUCTION,
+        BUSINESS
     }
 
     internal enum CacheGroup {
-        Localization,
-        Pages,
+        LOCALIZATION,
+        PAGES,
     }
 
     internal enum Language {
@@ -40,7 +40,7 @@ namespace ASM.Lib.Constants {
         public static readonly Dictionary<string, UserControl> SIDEBAR_LINKS = new Dictionary<string, UserControl> {
             { "dashboard", new DashboardView() },
             { "customers", new CustomersView() },
-            { "settings", new CustomersView() },
+            { "settings", new SettingsView() },
         };
 
         public static readonly ArrayList PRICE_TABLE = new ArrayList()

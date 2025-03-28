@@ -25,15 +25,15 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.pnlSidebar = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlLayout = new System.Windows.Forms.SplitContainer();
+            this.pnlContent = new System.Windows.Forms.TableLayoutPanel();
+            this.lblPageTitle = new System.Windows.Forms.Label();
+            this.pnlContainer = new System.Windows.Forms.Panel();
             this.btnCollapse = new ASM.Components.CustomButton();
             this.btnCustomers = new ASM.Components.CustomButton();
             this.btnDashboard = new ASM.Components.CustomButton();
             this.btnSettings = new ASM.Components.CustomButton();
             this.btnExit = new ASM.Components.CustomButton();
-            this.pnlLayout = new System.Windows.Forms.SplitContainer();
-            this.pnlContent = new System.Windows.Forms.TableLayoutPanel();
-            this.lblPageTitle = new System.Windows.Forms.Label();
-            this.pnlContainer = new System.Windows.Forms.Panel();
             this.pnlSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlLayout)).BeginInit();
             this.pnlLayout.Panel1.SuspendLayout();
@@ -70,6 +70,70 @@
             this.pnlSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.pnlSidebar.Size = new System.Drawing.Size(200, 681);
             this.pnlSidebar.TabIndex = 2;
+            // 
+            // pnlLayout
+            // 
+            this.pnlLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.pnlLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLayout.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.pnlLayout.IsSplitterFixed = true;
+            this.pnlLayout.Location = new System.Drawing.Point(0, 0);
+            this.pnlLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlLayout.Name = "pnlLayout";
+            // 
+            // pnlLayout.Panel1
+            // 
+            this.pnlLayout.Panel1.Controls.Add(this.pnlSidebar);
+            this.pnlLayout.Panel1MinSize = 200;
+            // 
+            // pnlLayout.Panel2
+            // 
+            this.pnlLayout.Panel2.Controls.Add(this.pnlContent);
+            this.pnlLayout.Size = new System.Drawing.Size(1264, 681);
+            this.pnlLayout.SplitterDistance = 200;
+            this.pnlLayout.SplitterWidth = 1;
+            this.pnlLayout.TabIndex = 3;
+            // 
+            // pnlContent
+            // 
+            this.pnlContent.AutoSize = true;
+            this.pnlContent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlContent.ColumnCount = 1;
+            this.pnlContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlContent.Controls.Add(this.lblPageTitle, 0, 0);
+            this.pnlContent.Controls.Add(this.pnlContainer, 0, 1);
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(0, 0);
+            this.pnlContent.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.RowCount = 2;
+            this.pnlContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.pnlContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnlContent.Size = new System.Drawing.Size(1063, 681);
+            this.pnlContent.TabIndex = 0;
+            // 
+            // lblPageTitle
+            // 
+            this.lblPageTitle.AutoSize = true;
+            this.lblPageTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblPageTitle.Location = new System.Drawing.Point(15, 15);
+            this.lblPageTitle.Margin = new System.Windows.Forms.Padding(15, 15, 15, 5);
+            this.lblPageTitle.Name = "lblPageTitle";
+            this.lblPageTitle.Size = new System.Drawing.Size(143, 32);
+            this.lblPageTitle.TabIndex = 0;
+            this.lblPageTitle.Text = "Page Name";
+            // 
+            // pnlContainer
+            // 
+            this.pnlContainer.AutoSize = true;
+            this.pnlContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContainer.Location = new System.Drawing.Point(0, 52);
+            this.pnlContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlContainer.Name = "pnlContainer";
+            this.pnlContainer.Size = new System.Drawing.Size(1063, 629);
+            this.pnlContainer.TabIndex = 1;
             // 
             // btnCollapse
             // 
@@ -198,6 +262,7 @@
             this.btnSettings.Text = "Settings";
             this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSettings.UseVisualStyleBackColor = false;
+            this.btnSettings.Click += new System.EventHandler(this.SidebarBtnsClick);
             // 
             // btnExit
             // 
@@ -230,70 +295,6 @@
             this.btnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.Exit);
-            // 
-            // pnlLayout
-            // 
-            this.pnlLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.pnlLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLayout.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.pnlLayout.IsSplitterFixed = true;
-            this.pnlLayout.Location = new System.Drawing.Point(0, 0);
-            this.pnlLayout.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlLayout.Name = "pnlLayout";
-            // 
-            // pnlLayout.Panel1
-            // 
-            this.pnlLayout.Panel1.Controls.Add(this.pnlSidebar);
-            this.pnlLayout.Panel1MinSize = 200;
-            // 
-            // pnlLayout.Panel2
-            // 
-            this.pnlLayout.Panel2.Controls.Add(this.pnlContent);
-            this.pnlLayout.Size = new System.Drawing.Size(1264, 681);
-            this.pnlLayout.SplitterDistance = 200;
-            this.pnlLayout.SplitterWidth = 1;
-            this.pnlLayout.TabIndex = 3;
-            // 
-            // pnlContent
-            // 
-            this.pnlContent.AutoSize = true;
-            this.pnlContent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlContent.ColumnCount = 1;
-            this.pnlContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlContent.Controls.Add(this.lblPageTitle, 0, 0);
-            this.pnlContent.Controls.Add(this.pnlContainer, 0, 1);
-            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(0, 0);
-            this.pnlContent.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlContent.Name = "pnlContent";
-            this.pnlContent.RowCount = 2;
-            this.pnlContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.pnlContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlContent.Size = new System.Drawing.Size(1063, 681);
-            this.pnlContent.TabIndex = 0;
-            // 
-            // lblPageTitle
-            // 
-            this.lblPageTitle.AutoSize = true;
-            this.lblPageTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblPageTitle.Location = new System.Drawing.Point(15, 15);
-            this.lblPageTitle.Margin = new System.Windows.Forms.Padding(15, 15, 15, 5);
-            this.lblPageTitle.Name = "lblPageTitle";
-            this.lblPageTitle.Size = new System.Drawing.Size(143, 32);
-            this.lblPageTitle.TabIndex = 0;
-            this.lblPageTitle.Text = "Page Name";
-            // 
-            // pnlContainer
-            // 
-            this.pnlContainer.AutoSize = true;
-            this.pnlContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.pnlContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContainer.Location = new System.Drawing.Point(0, 52);
-            this.pnlContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlContainer.Name = "pnlContainer";
-            this.pnlContainer.Size = new System.Drawing.Size(1063, 629);
-            this.pnlContainer.TabIndex = 1;
             // 
             // MainView
             // 

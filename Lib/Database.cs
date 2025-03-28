@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace ASM.Lib {
     internal static class Database {
@@ -15,8 +14,9 @@ namespace ASM.Lib {
 
         public static void Init() {
             try {
-                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceConstants.DATABASE_PATH))
-                using (StreamReader reader = new StreamReader(stream)) {
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourceConstants.DATABASE_FILE);
+
+                using (StreamReader reader = new StreamReader(filePath)) {
                     while (!reader.EndOfStream) {
                         string line = reader.ReadLine();
 
@@ -41,19 +41,30 @@ namespace ASM.Lib {
             }
         }
 
+        private static void SaveToFile() {
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourceConstants.DATABASE_FILE);
+
+            using (StreamWriter writer = new StreamWriter(filePath)) {
+                foreach (CustomerModel customer in customerTable) {
+                    writer.WriteLine($"{customer.Id},{customer.Name},{(int)customer.Type},{customer.NumberOfPeople},{customer.LastWaterReading},{customer.CurrentWaterReading}");
+                }
+            }
+        }
+
         public static List<CustomerModel> SearchCustomers(string query) {
             return GetCustomers()
-                .Where(c => c.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                            c.Type.ToString().IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Where(c => c.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToList();
         }
 
         public static void SaveData(CustomerModel customer) {
             customerTable.Add(customer);
+            SaveToFile();
         }
 
         public static void UpdateData(CustomerModel customer) {
             customerTable[customer.Id - 1] = customer;
+            SaveToFile();
         }
 
         public static void DeleteData(int selectedIndex) {
