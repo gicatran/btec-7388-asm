@@ -39,19 +39,19 @@
             this.pnlLayout.RowCount = 2;
             this.pnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.pnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlLayout.Size = new System.Drawing.Size(713, 409);
+            this.pnlLayout.Size = new System.Drawing.Size(1033, 599);
             this.pnlLayout.TabIndex = 0;
             // 
             // DashboardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.pnlLayout);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "DashboardView";
             this.Padding = new System.Windows.Forms.Padding(15);
-            this.Size = new System.Drawing.Size(743, 439);
+            this.Size = new System.Drawing.Size(1063, 629);
             this.ResumeLayout(false);
             this.PerformLayout();
 

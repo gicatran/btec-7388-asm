@@ -282,7 +282,7 @@ namespace ASM.Components {
 
         private void UpdateControlHeight() {
             if (!txtField.Multiline) {
-                int txtHeight = TextRenderer.MeasureText("Text", Font).Height + 1;
+                int txtHeight = TextRenderer.MeasureText("Text", Font).Height + 4;
                 txtField.Multiline = true;
                 txtField.MinimumSize = new Size(0, txtHeight);
                 txtField.Multiline = false;
@@ -374,6 +374,13 @@ namespace ASM.Components {
             isFocused = false;
             Invalidate();
             SetPlaceholder();
+        }
+
+        protected override void OnSizeChanged(EventArgs e) {
+            base.OnSizeChanged(e);
+            txtField.Width = Width - (borderSize * 2);
+            txtField.Height = Height - (borderSize * 2);
+            Invalidate();
         }
     }
 }
