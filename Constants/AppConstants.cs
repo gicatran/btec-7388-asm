@@ -5,32 +5,32 @@ using System.Windows.Forms;
 
 namespace ASM.Lib.Constants {
     internal enum CustomerType {
-        HOUSEHOLD,
-        ADMINISTRATIVE,
-        PRODUCTION,
-        BUSINESS
+        Household,
+        Administrative,
+        Production,
+        Business
     }
 
     internal enum CacheGroup {
-        LOCALIZATION,
-        PAGES,
+        Localization,
+        Pages,
     }
 
     internal enum Language {
-        EN,
-        VI,
+        En,
+        Vi,
     }
 
     internal enum ValidationType {
-        NOT_EMPTY,
-        NUMERIC,
-        SELECTED,
+        NotEmpty,
+        Numeric,
+        Selected,
     }
 
     internal enum ToastType {
-        SUCCESS,
-        ERROR,
-        WARNING,
+        Success,
+        Error,
+        Warning,
     }
 
     internal static class AppConstants {

@@ -17,7 +17,7 @@ namespace ASM.Lib {
 
         public static void Init(Control mainControl) {
             LanguageChanged += () => ApplyLocalization(mainControl);
-            Load(Language.EN);
+            Load(Language.En);
         }
 
         public static void Load(Language language) {
@@ -52,7 +52,7 @@ namespace ASM.Lib {
             string[] keys = control.Tag.ToString().Split(',');
             string[] localizedTexts = GetResources(keys);
 
-            string[] storedTexts = CacheManager.Get<string[]>(CacheGroup.LOCALIZATION, control.Name);
+            string[] storedTexts = CacheManager.Get<string[]>(CacheGroup.Localization, control.Name);
             string[] currentTexts = new string[localizedTexts.Length];
 
             if (control is CustomTextBox customTextBox) {
@@ -87,7 +87,7 @@ namespace ASM.Lib {
                 control.Text = localizedTexts[0];
             }
 
-            CacheManager.Set(CacheGroup.LOCALIZATION, control.Name, localizedTexts);
+            CacheManager.Set(CacheGroup.Localization, control.Name, localizedTexts);
         }
 
         public static void ApplyLocalizations(Control parentControl) {

@@ -22,7 +22,7 @@ namespace ASM.Lib {
 
                 foreach (ValidationType validationType in entry.Value) {
                     if (!ValidateControl(control, validationType, out string errorMessage)) {
-                        Toast.ShowToast($"'{GetFieldName(control)}' {Localizer.GetResource(errorMessage)}!", ToastType.ERROR);
+                        Toast.ShowToast($"'{GetFieldName(control)}' {Localizer.GetResource(errorMessage)}!", ToastType.Error);
 
                         if (control is CustomTextBox textBoxError) {
                             textBoxError.BorderColor = ColorConstants.ERROR;
@@ -46,19 +46,19 @@ namespace ASM.Lib {
 
         private bool ValidateControl(Control control, ValidationType validationType, out string errorMessage) {
             switch (validationType) {
-                case ValidationType.NOT_EMPTY:
+                case ValidationType.NotEmpty:
                     if (string.IsNullOrWhiteSpace((control as CustomTextBox)?.Texts)) {
                         errorMessage = ResourceConstants.ERROR_EMPTY;
                         return false;
                     }
                     break;
-                case ValidationType.NUMERIC:
+                case ValidationType.Numeric:
                     if (!int.TryParse((control as CustomTextBox)?.Texts, out _)) {
                         errorMessage = ResourceConstants.ERROR_NUMERIC;
                         return false;
                     }
                     break;
-                case ValidationType.SELECTED:
+                case ValidationType.Selected:
                     if ((control as CustomComboBox)?.SelectedIndex == -1) {
                         errorMessage = ResourceConstants.ERROR_SELECT;
                         return false;

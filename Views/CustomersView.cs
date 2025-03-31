@@ -23,11 +23,11 @@ namespace ASM.Views {
             validator = new Validator();
             cmbType.Tag = Utils.EnumToString<CustomerType>();
 
-            validator.Register(txtName, ValidationType.NOT_EMPTY);
-            validator.Register(cmbType, ValidationType.SELECTED);
-            validator.Register(txtPeople, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
-            validator.Register(txtLast, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
-            validator.Register(txtCurrent, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
+            validator.Register(txtName, ValidationType.NotEmpty);
+            validator.Register(cmbType, ValidationType.Selected);
+            validator.Register(txtPeople, ValidationType.NotEmpty, ValidationType.Numeric);
+            validator.Register(txtLast, ValidationType.NotEmpty, ValidationType.Numeric);
+            validator.Register(txtCurrent, ValidationType.NotEmpty, ValidationType.Numeric);
 
             RefreshData();
         }
@@ -50,14 +50,14 @@ namespace ASM.Views {
                 );
 
                 controller.AddCustomer(customer);
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_ADD)}!", ToastType.SUCCESS);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_ADD)}!", ToastType.Success);
                 RefreshData();
             }
         }
 
         private void Edit(object sender, EventArgs e) {
             if (dgvCustomers.SelectedRows.Count <= 0) {
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_UPDATE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_UPDATE_SELECT)}!", ToastType.Warning);
                 return;
             }
 
@@ -74,7 +74,7 @@ namespace ASM.Views {
                 );
 
                 controller.UpdateCustomer(selectedIndex, customer);
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_UPDATE)}!", ToastType.SUCCESS);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_UPDATE)}!", ToastType.Success);
                 RefreshData();
             }
         }
@@ -85,20 +85,20 @@ namespace ASM.Views {
 
         private void Remove(object sender, EventArgs e) {
             if (dgvCustomers.SelectedRows.Count <= 0) {
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_DELETE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_DELETE_SELECT)}!", ToastType.Warning);
                 return;
             }
 
             int selectedIndex = dgvCustomers.SelectedRows[0].Index;
 
             controller.DeleteCustomer(selectedIndex);
-            Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_DELETE)}!", ToastType.SUCCESS);
+            Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_DELETE)}!", ToastType.Success);
             RefreshData();
         }
 
         private void GenerateInvoice(object sender, EventArgs e) {
             if (dgvCustomers.SelectedRows.Count <= 0) {
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.WARNING);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.Warning);
                 return;
             }
 

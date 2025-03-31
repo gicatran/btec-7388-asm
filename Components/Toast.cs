@@ -104,13 +104,13 @@ namespace ASM.Components {
             Color backColor;
 
             switch (type) {
-                case ToastType.SUCCESS:
+                case ToastType.Success:
                     backColor = ColorConstants.SUCCESS;
                     break;
-                case ToastType.ERROR:
+                case ToastType.Error:
                     backColor = ColorConstants.ERROR;
                     break;
-                case ToastType.WARNING:
+                case ToastType.Warning:
                     backColor = ColorConstants.WARNING;
                     break;
                 default:

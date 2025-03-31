@@ -40,9 +40,9 @@ namespace ASM.Lib {
 
                 doc.Close();
                 Process.Start(new ProcessStartInfo(invoiceFilePath) { UseShellExecute = true });
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_INVOICE)}!", ToastType.SUCCESS);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_INVOICE)}!", ToastType.Success);
             } catch (Exception ex) {
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.ERROR_INVOICE)}: {ex.Message}!", ToastType.ERROR);
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.ERROR_INVOICE)}: {ex.Message}!", ToastType.Error);
             }
         }
     }

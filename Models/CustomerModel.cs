@@ -33,7 +33,7 @@ namespace ASM.Models {
         }
 
         public double CalculateTotalBill() {
-            if (Type == CustomerType.HOUSEHOLD) {
+            if (Type == CustomerType.Household) {
                 return CalculateHouseholdBill();
             }
 
@@ -46,7 +46,7 @@ namespace ASM.Models {
 
         private double CalculateHouseholdBill() {
             int averageConsumption = AmountOfConsumption / NumberOfPeople;
-            double[] prices = (double[])AppConstants.PRICE_TABLE[Convert.ToInt32(CustomerType.HOUSEHOLD)];
+            double[] prices = (double[])AppConstants.PRICE_TABLE[Convert.ToInt32(CustomerType.Household)];
             int[] limits = { 10, 10, 10, int.MaxValue };
             double cost = 0;
 
