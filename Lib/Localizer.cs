@@ -17,7 +17,7 @@ namespace ASM.Lib {
 
         public static void Init(Control mainControl) {
             LanguageChanged += () => ApplyLocalization(mainControl);
-            Load(Language.VI);
+            Load(Language.EN);
         }
 
         public static void Load(Language language) {

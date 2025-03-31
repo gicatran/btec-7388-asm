@@ -35,7 +35,8 @@ namespace ASM.Lib {
                 doc.Add(new Paragraph($"{Localizer.GetResource(ResourceConstants.INVOICE_CONSUMPTION)}: {customer.AmountOfConsumption}", normalFont));
                 doc.Add(new Paragraph("\n"));
 
-                doc.Add(new Paragraph($"{Localizer.GetResource(ResourceConstants.INVOICE_TOTAL)}: {Utils.PrefixAndFormat(Convert.ToInt32(customer.CalculateTotalBill()))} VND", boldFont));
+                doc.Add(new Paragraph($"{Localizer.GetResource(ResourceConstants.INVOICE_TOTAL)}: " +
+                    $"{Utils.PrefixAndFormat(Convert.ToInt32(customer.CalculateTotalBill()))} VND", boldFont));
 
                 doc.Close();
                 Process.Start(new ProcessStartInfo(invoiceFilePath) { UseShellExecute = true });
