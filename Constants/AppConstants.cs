@@ -38,7 +38,6 @@ namespace ASM.Lib.Constants {
         public const int SIDEBAR_WIDTH = 200;
 
         public static readonly Dictionary<string, UserControl> SIDEBAR_LINKS = new Dictionary<string, UserControl> {
-            { "dashboard", new DashboardView() },
             { "customers", new CustomersView() },
             { "settings", new SettingsView() },
         };

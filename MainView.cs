@@ -11,21 +11,21 @@ namespace ASM {
     internal partial class MainView : Form {
         private bool isSidebarCollapsed;
         private CustomButton activeButton;
-        private readonly MainController controller;
+        private MainController controller;
 
         public MainView() {
             InitializeComponent();
-            controller = new MainController();
-            Database.Init();
-            Localizer.Init(this);
             Init();
         }
 
         private void Init() {
             isSidebarCollapsed = false;
-            btnDashboard.Width = pnlSidebar.ClientSize.Width;
+            controller = new MainController();
 
-            LoadPage(btnDashboard);
+            Database.LoadFile();
+            Localizer.Init(this);
+
+            LoadPage(btnCustomers);
         }
 
         private void SetActiveButton(CustomButton button) {

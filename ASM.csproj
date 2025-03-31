@@ -121,12 +121,6 @@
     <Compile Include="Views\CustomersView.Designer.cs">
       <DependentUpon>CustomersView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DashboardView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\DashboardView.Designer.cs">
-      <DependentUpon>DashboardView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -161,9 +155,6 @@
     <EmbeddedResource Include="Resources\Texts\AppTexts.vi.resx" />
     <EmbeddedResource Include="Views\CustomersView.resx">
       <DependentUpon>CustomersView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\DashboardView.resx">
-      <DependentUpon>DashboardView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>

@@ -12,8 +12,10 @@ namespace ASM.Lib {
     internal static class Database {
         private readonly static SortableBindingList<CustomerModel> customerTable = new SortableBindingList<CustomerModel>();
 
-        public static void Init() {
+        public static void LoadFile() {
             try {
+                customerTable.Clear();
+
                 string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ResourceConstants.DATABASE_FILE);
 
                 using (StreamReader reader = new StreamReader(filePath)) {
@@ -60,15 +62,19 @@ namespace ASM.Lib {
         public static void SaveData(CustomerModel customer) {
             customerTable.Add(customer);
             SaveToFile();
+            LoadFile();
         }
 
         public static void UpdateData(CustomerModel customer) {
             customerTable[customer.Id - 1] = customer;
             SaveToFile();
+            LoadFile();
         }
 
         public static void DeleteData(int selectedIndex) {
             customerTable.RemoveAt(selectedIndex);
+            SaveToFile();
+            LoadFile();
         }
 
         public static BindingList<CustomerModel> GetCustomers() {

@@ -10,40 +10,32 @@ using System.Windows.Forms;
 namespace ASM.Views {
     internal partial class CustomersView : UserControl {
         private bool isLoaded;
-        private int selectedIndex;
-        private readonly CustomerController controller;
+        private CustomerController controller;
         private Validator validator;
 
         public CustomersView() {
             InitializeComponent();
-            controller = new CustomerController();
             Init();
         }
 
         private void Init() {
-            selectedIndex = -1;
+            controller = new CustomerController();
             validator = new Validator();
-        }
+            cmbType.Tag = Utils.EnumToString<CustomerType>();
 
-        private void OnLoad(object sender, EventArgs e) {
             validator.Register(txtName, ValidationType.NOT_EMPTY);
             validator.Register(cmbType, ValidationType.SELECTED);
             validator.Register(txtPeople, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
             validator.Register(txtLast, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
             validator.Register(txtCurrent, ValidationType.NOT_EMPTY, ValidationType.NUMERIC);
 
-            RefreshView();
+            RefreshData();
         }
 
-        private void RefreshView() {
-            dgvCustomers.Columns.Clear();
+        private void RefreshData() {
             dgvCustomers.DataSource = controller.GetCustomers();
             dgvCustomers.Columns[2].Visible = false;
-            cmbType.Tag = Utils.EnumToString<CustomerType>();
-
-            Localizer.ApplyLocalization(cmbType);
-            Localizer.ApplyLocalization(dgvCustomers);
-            ClearSelection();
+            dgvCustomers.ClearSelection();
         }
 
         private void Add(object sender, EventArgs e) {
@@ -51,7 +43,7 @@ namespace ASM.Views {
                 var customer = new CustomerModel(
                     controller.GetCustomers().Count + 1,
                     txtName.Texts,
-                    (CustomerType)Enum.Parse(typeof(CustomerType), cmbType.SelectedItem.ToString()),
+                    (CustomerType)cmbType.SelectedIndex,
                     int.Parse(txtPeople.Texts),
                     int.Parse(txtLast.Texts),
                     int.Parse(txtCurrent.Texts)
@@ -59,14 +51,17 @@ namespace ASM.Views {
 
                 controller.AddCustomer(customer);
                 Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_ADD)}!", ToastType.SUCCESS);
+                RefreshData();
             }
         }
 
         private void Edit(object sender, EventArgs e) {
-            if (selectedIndex == -1) {
+            if (dgvCustomers.SelectedRows.Count <= 0) {
                 Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_UPDATE_SELECT)}!", ToastType.WARNING);
                 return;
             }
+
+            int selectedIndex = dgvCustomers.SelectedRows[0].Index;
 
             if (validator.ValidateAll()) {
                 var customer = new CustomerModel(
@@ -80,85 +75,84 @@ namespace ASM.Views {
 
                 controller.UpdateCustomer(selectedIndex, customer);
                 Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_UPDATE)}!", ToastType.SUCCESS);
-                RefreshView();
+                RefreshData();
             }
         }
 
         private void New(object sender, EventArgs e) {
-            ResetForm();
+            dgvCustomers.ClearSelection();
         }
 
         private void Remove(object sender, EventArgs e) {
-            if (selectedIndex == -1) {
+            if (dgvCustomers.SelectedRows.Count <= 0) {
                 Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_DELETE_SELECT)}!", ToastType.WARNING);
                 return;
             }
 
+            int selectedIndex = dgvCustomers.SelectedRows[0].Index;
+
             controller.DeleteCustomer(selectedIndex);
             Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.SUCCESS_DELETE)}!", ToastType.SUCCESS);
+            RefreshData();
         }
 
-        private void ResetForm() {
-            txtName.Texts = "";
-            cmbType.SelectedIndex = 0;
-            txtPeople.Texts = "1";
-            txtLast.Texts = "";
-            txtCurrent.Texts = "";
-
-            dgvCustomers.ClearSelection();
-            selectedIndex = -1;
-        }
-
-        private void ClearSelection() {
-            BeginInvoke((Action)(() => {
-                dgvCustomers.ClearSelection();
-                selectedIndex = -1;
-                isLoaded = true;
-            }));
-
-            ResetForm();
-        }
-
-        private void CmbType_SelectedIndexChanged(object sender, EventArgs e) {
-            if (!isLoaded) {
-                isLoaded = true;
+        private void GenerateInvoice(object sender, EventArgs e) {
+            if (dgvCustomers.SelectedRows.Count <= 0) {
+                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.WARNING);
                 return;
             }
 
+            int selectedIndex = dgvCustomers.SelectedRows[0].Index;
+
+            CustomerModel customer = controller.GetCustomers()[selectedIndex];
+            InvoiceService.GenerateInvoice(customer);
+            RefreshData();
+        }
+
+        private void CmbType_SelectedIndexChanged(object sender, EventArgs e) {
             txtPeople.Enabled = cmbType.SelectedIndex == 0;
             txtPeople.Texts = cmbType.SelectedIndex == 0 ? txtPeople.Texts : "1";
         }
 
         private void DgvCustomers_SelectionChanged(object sender, EventArgs e) {
-            if (!isLoaded || dgvCustomers.SelectedRows.Count == 0) {
+            if (!isLoaded) {
                 return;
             }
 
-            selectedIndex = dgvCustomers.SelectedRows[0].Index;
-
-            if (selectedIndex >= 0 && selectedIndex < dgvCustomers.Rows.Count) {
-                txtName.Texts = dgvCustomers.Rows[selectedIndex].Cells[1].Value.ToString();
-                cmbType.SelectedIndex = Convert.ToInt32(dgvCustomers.Rows[selectedIndex].Cells[2].Value);
-                txtPeople.Texts = dgvCustomers.Rows[selectedIndex].Cells[4].Value.ToString();
-                txtLast.Texts = dgvCustomers.Rows[selectedIndex].Cells[5].Value.ToString();
-                txtCurrent.Texts = dgvCustomers.Rows[selectedIndex].Cells[6].Value.ToString();
+            if (dgvCustomers.SelectedRows.Count == 0 || dgvCustomers.Rows.Count == 0) {
+                txtName.Texts = "";
+                cmbType.SelectedIndex = 0;
+                txtPeople.Texts = "1";
+                txtLast.Texts = "";
+                txtCurrent.Texts = "";
+                return;
             }
+
+            int selectedIndex = dgvCustomers.SelectedRows[0].Index;
+
+            if (selectedIndex < 0 || selectedIndex >= dgvCustomers.Rows.Count) {
+                return;
+            }
+
+            var row = dgvCustomers.Rows[selectedIndex];
+
+            txtName.Texts = row.Cells[1].Value.ToString();
+            cmbType.SelectedIndex = Convert.ToInt32((CustomerType)row.Cells[2].Value);
+            txtPeople.Texts = row.Cells[4].Value.ToString();
+            txtLast.Texts = row.Cells[5].Value.ToString();
+            txtCurrent.Texts = row.Cells[6].Value.ToString();
         }
 
         private void TxtSearch_BaseTextChanged(object sender, EventArgs e) {
             dgvCustomers.DataSource = controller.SearchCustomers(txtSearch.Texts.Trim());
-
-            ClearSelection();
+            dgvCustomers.ClearSelection();
         }
 
-        private void GenerateInvoice(object sender, EventArgs e) {
-            if (selectedIndex == -1 || dgvCustomers.SelectedRows.Count == 0) {
-                Toast.ShowToast($"{Localizer.GetResource(ResourceConstants.WARNING_INVOICE_SELECT)}!", ToastType.WARNING);
-                return;
-            }
-
-            CustomerModel customer = controller.GetCustomers()[selectedIndex];
-            InvoiceService.GenerateInvoice(customer);
+        private void CustomersView_Load(object sender, EventArgs e) {
+            BeginInvoke((Action)(() => {
+                isLoaded = true;
+                dgvCustomers.ClearSelection();
+            }));
         }
     }
 }

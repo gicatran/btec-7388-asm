@@ -4,32 +4,23 @@ using System.ComponentModel;
 
 namespace ASM.Controllers {
     internal class CustomerController {
-        private readonly BindingList<CustomerModel> customers;
-
-        public CustomerController() {
-            customers = new BindingList<CustomerModel>(Database.GetCustomers());
-        }
-
         public BindingList<CustomerModel> GetCustomers() {
-            return customers;
+            return Database.GetCustomers();
         }
 
         public void AddCustomer(CustomerModel customer) {
-            customers.Add(customer);
             Database.SaveData(customer);
         }
 
         public void UpdateCustomer(int index, CustomerModel customer) {
-            if (index >= 0 && index < customers.Count) {
-                customers[index] = customer;
+            if (index >= 0 && index < Database.GetCustomers().Count) {
                 Database.UpdateData(customer);
             }
         }
 
         public void DeleteCustomer(int index) {
-            if (index >= 0 && index < customers.Count) {
+            if (index >= 0 && index < Database.GetCustomers().Count) {
                 Database.DeleteData(index);
-                customers.RemoveAt(index);
             }
         }
 
