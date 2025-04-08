@@ -14,9 +14,11 @@ namespace ASM.Models {
         public int LastWaterReading { get; set; }
         public int CurrentWaterReading { get; set; }
         public int AmountOfConsumption {
-            get {
-                return CurrentWaterReading - LastWaterReading;
-            }
+            get => CurrentWaterReading - LastWaterReading;
+        }
+
+        public string TotalBill {
+            get => CalculateTotalBill().ToString("N2");
         }
 
         public CustomerModel() {

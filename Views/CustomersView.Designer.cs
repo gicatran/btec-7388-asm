@@ -28,14 +28,6 @@
             this.pnlLayout = new System.Windows.Forms.TableLayoutPanel();
             this.txtSearch = new ASM.Components.CustomTextBox();
             this.dgvCustomers = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.display_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.people = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.last = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.current = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.consumption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.divider = new ASM.Components.Divider();
             this.pnlForm = new System.Windows.Forms.TableLayoutPanel();
             this.txtPeople = new ASM.Components.CustomTextBox();
@@ -54,6 +46,15 @@
             this.btnNew = new ASM.Components.CustomButton();
             this.btnInvoice = new ASM.Components.CustomButton();
             this.btnRemove = new ASM.Components.CustomButton();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.display_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.people = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.last = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.current = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.consumption = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total_bill = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             this.pnlForm.SuspendLayout();
@@ -136,7 +137,8 @@
             this.people,
             this.last,
             this.current,
-            this.consumption});
+            this.consumption,
+            this.total_bill});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -159,80 +161,8 @@
             this.dgvCustomers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCustomers.Size = new System.Drawing.Size(596, 548);
             this.dgvCustomers.TabIndex = 1;
-            this.dgvCustomers.Tag = "id,name,type,type,people,last,current,consumption";
+            this.dgvCustomers.Tag = "id,name,type,type,people,last,current,consumption,total-bill";
             this.dgvCustomers.SelectionChanged += new System.EventHandler(this.DgvCustomers_SelectionChanged);
-            // 
-            // id
-            // 
-            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id.DataPropertyName = "Id";
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 47;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.name.DataPropertyName = "Name";
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.Width = 69;
-            // 
-            // type
-            // 
-            this.type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.type.DataPropertyName = "Type";
-            this.type.HeaderText = "Type";
-            this.type.Name = "type";
-            this.type.ReadOnly = true;
-            this.type.Width = 61;
-            // 
-            // display_type
-            // 
-            this.display_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.display_type.DataPropertyName = "DisplayType";
-            this.display_type.HeaderText = "Display Type";
-            this.display_type.Name = "display_type";
-            this.display_type.ReadOnly = true;
-            this.display_type.Width = 109;
-            // 
-            // people
-            // 
-            this.people.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.people.DataPropertyName = "NumberOfPeople";
-            this.people.HeaderText = "People";
-            this.people.Name = "people";
-            this.people.ReadOnly = true;
-            this.people.Width = 73;
-            // 
-            // last
-            // 
-            this.last.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.last.DataPropertyName = "LastWaterReading";
-            this.last.HeaderText = "Last";
-            this.last.Name = "last";
-            this.last.ReadOnly = true;
-            this.last.Width = 58;
-            // 
-            // current
-            // 
-            this.current.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.current.DataPropertyName = "CurrentWaterReading";
-            this.current.HeaderText = "Current";
-            this.current.Name = "current";
-            this.current.ReadOnly = true;
-            this.current.Width = 80;
-            // 
-            // consumption
-            // 
-            this.consumption.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.consumption.DataPropertyName = "AmountOfConsumption";
-            this.consumption.HeaderText = "Consumption";
-            this.consumption.Name = "consumption";
-            this.consumption.ReadOnly = true;
-            this.consumption.Width = 116;
             // 
             // divider
             // 
@@ -627,6 +557,86 @@
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.Remove);
             // 
+            // id
+            // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.id.DataPropertyName = "Id";
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 47;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.name.DataPropertyName = "Name";
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.Width = 69;
+            // 
+            // type
+            // 
+            this.type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.type.DataPropertyName = "Type";
+            this.type.HeaderText = "Type";
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            this.type.Width = 61;
+            // 
+            // display_type
+            // 
+            this.display_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.display_type.DataPropertyName = "DisplayType";
+            this.display_type.HeaderText = "Display Type";
+            this.display_type.Name = "display_type";
+            this.display_type.ReadOnly = true;
+            this.display_type.Width = 109;
+            // 
+            // people
+            // 
+            this.people.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.people.DataPropertyName = "NumberOfPeople";
+            this.people.HeaderText = "People";
+            this.people.Name = "people";
+            this.people.ReadOnly = true;
+            this.people.Width = 73;
+            // 
+            // last
+            // 
+            this.last.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.last.DataPropertyName = "LastWaterReading";
+            this.last.HeaderText = "Last";
+            this.last.Name = "last";
+            this.last.ReadOnly = true;
+            this.last.Width = 58;
+            // 
+            // current
+            // 
+            this.current.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.current.DataPropertyName = "CurrentWaterReading";
+            this.current.HeaderText = "Current";
+            this.current.Name = "current";
+            this.current.ReadOnly = true;
+            this.current.Width = 80;
+            // 
+            // consumption
+            // 
+            this.consumption.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.consumption.DataPropertyName = "AmountOfConsumption";
+            this.consumption.HeaderText = "Consumption";
+            this.consumption.Name = "consumption";
+            this.consumption.ReadOnly = true;
+            this.consumption.Width = 116;
+            // 
+            // total_bill
+            // 
+            this.total_bill.DataPropertyName = "TotalBill";
+            this.total_bill.HeaderText = "Total Bill";
+            this.total_bill.Name = "total_bill";
+            this.total_bill.ReadOnly = true;
+            this.total_bill.Width = 83;
+            // 
             // CustomersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -679,5 +689,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn last;
         private System.Windows.Forms.DataGridViewTextBoxColumn current;
         private System.Windows.Forms.DataGridViewTextBoxColumn consumption;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total_bill;
     }
 }

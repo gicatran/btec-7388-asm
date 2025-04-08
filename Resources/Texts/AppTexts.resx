@@ -252,4 +252,7 @@
   <data name="generate-invoice" xml:space="preserve">
     <value>Generate Invoice</value>
   </data>
+  <data name="total-bill" xml:space="preserve">
+    <value>Total Bill</value>
+  </data>
 </root>

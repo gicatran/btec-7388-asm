@@ -252,4 +252,7 @@
   <data name="generate-invoice" xml:space="preserve">
     <value>Xuất hóa đơn</value>
   </data>
+  <data name="total-bill" xml:space="preserve">
+    <value>Tổng Tiền</value>
+  </data>
 </root>
