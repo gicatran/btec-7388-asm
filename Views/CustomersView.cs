@@ -35,6 +35,11 @@ namespace ASM.Views {
         private void RefreshData() {
             dgvCustomers.DataSource = controller.GetCustomers();
             dgvCustomers.Columns[2].Visible = false;
+
+            foreach (DataGridViewColumn column in dgvCustomers.Columns) {
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
+
             dgvCustomers.ClearSelection();
         }
 
